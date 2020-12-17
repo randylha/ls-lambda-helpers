@@ -1,0 +1,11 @@
+{
+    "name": "ls-lambda-helpers",
+    "version": "1.0.0",
+    "description": "Helpers that aid fast lambda creation",
+    "main": "index.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "jmcravinho",
+    "license": "MIT"
+  }
