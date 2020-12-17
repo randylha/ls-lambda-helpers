@@ -1,6 +1,6 @@
 {
   "name": "ls-lambda-helpers",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Helpers that aid fast lambda creation",
   "main": "index.js",
   "scripts": {
