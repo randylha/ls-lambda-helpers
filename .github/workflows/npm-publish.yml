@@ -1,5 +1,4 @@
-# NPM Publish is the name for this action
-name: NPM Publish
+name: npm-publish
 
 # This action will trigger on every release get created
 on:
@@ -19,7 +18,7 @@ jobs:
           node-version: "12.x"
           registry-url: "https://registry.npmjs.org"
       # Run yarn install to install project packages
-      - run: yarn install
+      # - run: yarn install
       # yarn build to build the project
       # - run: yarn build
       # publish the files to NPM
