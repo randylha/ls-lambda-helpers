@@ -1,5 +1,5 @@
 const logger = require('./src/logger');
 const sfmcDE = require('./src/maketingCloud');
-const getSecrect = require('./src/secretsHelper');
+const getSecret = require('./src/secretsHelper');
 
-module.exports = {...logger, sfmcDE, getSecrect};
+module.exports = {...logger, sfmcDE, getSecret};
