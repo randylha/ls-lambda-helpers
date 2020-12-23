@@ -1,12 +1,12 @@
 class Logger {
   constructor() {
-    this.isProduction = process.env.stage === 'prod';
+    this.isProduction = process.env.STAGE === 'prod';
     this.logLevelMap = { debug: 3, info: 2, error: 1 };
     this.logLevel = this.setLogLevel();
   }
 
   setLogLevel() {
-    return this.logLevelMap[process.env.logLevel];
+    return this.logLevelMap[process.env.LOG_LEVEL];
   }
 
   debug(...message) {
@@ -63,4 +63,4 @@ class Logger {
   }
 }
 
-module.exports = { Logger };
+module.exports = Logger;

@@ -54,4 +54,4 @@ const postAPI = async (method, data) => {
     }
 };
 
-module.exports = postAPI
+module.exports = {postAPI}

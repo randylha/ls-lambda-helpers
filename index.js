@@ -1,5 +1,6 @@
-const logger = require('./src/logger');
-const sfmcDE = require('./src/maketingCloud');
+const Logger = require('./src/logger');
+const SFMC = require('./src/maketingCloud');
 const getSecret = require('./src/secretsHelper');
+const Encryption = require('./src/encryption');
 
-module.exports = {...logger, sfmcDE, getSecret};
+module.exports = {Logger, Encryption, SFMC, getSecret};
