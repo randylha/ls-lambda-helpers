@@ -4,9 +4,15 @@
 ![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/jacobcravinho/ls-lambda-helpers)
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/jacobcravinho/ls-lambda-helpers/npm-publish)
 
-Helpers used to aid in rapid developemnet and coding consistentcy.
+Helpers used to aid in rapid developement and coding consistentcy.
 ## Install
     npm install ls-lambda-helpers
+
+## Setup
+Standard helpers take a argument such as an apiKey when calling a method.  This helper differs in that it uses specified named Environmental Variables.  This makes it a little less flexible but much more powerful in that it requires you to use AWS Secrets Manager.
+
+* Make sure you are storing secrerts in AWS Secrets Manager
+* Use a config file to change secrets between environments
 
 ## Helpers
 
@@ -54,12 +60,66 @@ exports.handler = async (event, context) => {
 </details>
 
 
-<!-- SFMC Data Endpoints -->
-<details><summary><b>SFMC Data Endpoints</b></summary>
+<!-- AWS Get Secret -->
+<details><summary><b>AWS Get Secret</b></summary>
 <p>
 
 ### Description
-Handles authentication and calling to SalesForce Marketing Cloud DataExtension
+Retrieves AWS Secret by name.  Secret must be in json (key: value) format.
+
+### Setup
+Create a new secret in Secrets Manager and record the name.
+#### file.js
+```js
+const { Secrets } = require('ls-lambda-helpers');
+const {SECRET_NAME} = process.env;
+
+exports.handler = async (event, context) => { 
+  const secret = await Secrets.getSecret(SECRET_NAME);
+  console.log('SECRET:', secret)
+}
+```
+</p>
+</details>
+
+<!-- DDQ Auth -->
+<details><summary><b>DDQ Auth</b></summary>
+<p>
+
+### Description
+Handles authentication and updating expired tokens in AWS SSM parameter store.
+
+### Setup
+As of now you must use SSM Parameter Store but a refactor will be coming to move to Secrets Manager
+#### serverless.yml
+```yaml
+service: service-name
+provider:
+    environment:
+        DDQ_URL: https://url-to-ddq-endpoint
+        DDQ_TOKEN: /ddq/dev/token
+        DDQ_CREDENTIALS: /ddq/dev/credentials
+        DDQ_SESSION_TOKEN: /application-name/dev/ddq/session
+```
+
+#### file.js
+```js
+const { DDQ } = require('ls-lambda-helpers');
+...
+exports.handler = async (event, context) => { 
+  const session = await DDQ.ddqAuth();
+  const orderHeader = await getOrderHeader(session.ddqToken, orderId);
+}
+```
+</p>
+</details>
+
+<!-- SFMC Data Endpoints -->
+<details><summary><b>SFMC Data Extensions</b></summary>
+<p>
+
+### Description
+Handles authentication and calling SalesForce Marketing Cloud DataExtension API
 
 ### Setup
 You must use AWS SecretesManager to store your credentials.  Please store creds in the following format: `clientId:{ID}, clientSecret:{SECRET}`
@@ -74,7 +134,7 @@ provider:
 #### file.js
 ```js
 const { SFMC } = require('ls-lambda-helpers');
-// This is the string after key:
+// This is the URL path after /data/v1/async/dataextensions/key:
 const {SFMC_URL_METHOD} = process.env;
 
 exports.handler = async (event, context) => { 

@@ -11,4 +11,5 @@ const getSecret = async secretName => {
     }
 }
 
-module.exports = getSecret;
+
+module.exports = {getSecret};

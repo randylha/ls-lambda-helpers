@@ -1,6 +1,7 @@
 const Logger = require('./src/logger');
 const SFMC = require('./src/maketingCloud');
-const getSecret = require('./src/secretsHelper');
+const Secrets = require('./src/secretsHelper');
 const Encryption = require('./src/encryption');
+const DDQ = require('./src/ddqAuth');
 
-module.exports = {Logger, Encryption, SFMC, getSecret};
+module.exports = {Logger, Encryption, SFMC, Secrets, DDQ};

@@ -1,8 +1,8 @@
 const aws = require('aws-sdk');
-const ssm = new aws.SSM();
 const fetch = require('node-fetch');
+const ssm = new aws.SSM();
 
-const {DDQ_URL, DDQ_TOKEN, DDQ_CREDENTIALS, DDQ_SESSION_TOKEN}
+const {DDQ_URL, DDQ_TOKEN, DDQ_CREDENTIALS, DDQ_SESSION_TOKEN} = process.env;
 
 const authApp = async token =>
   fetch(`${DDQ_URL}/security/api/saauthenticate`, {
@@ -116,4 +116,4 @@ const ddqAuth = async (renewToken) => {
   }
 };
 
-module.exports = ddqAuth;
+module.exports = {ddqAuth};
