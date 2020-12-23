@@ -41,7 +41,7 @@ custom:
 provider:
     environment:
         STAGE: ${self:provider.stage}
-        LOG_EVEL: ${self:custom.logLevel.${self:provider.stage}}
+        LOG_LEVEL: ${self:custom.logLevel.${self:provider.stage}}
 ```
 ** Note: If you do not need custom level for each stage and only want to override PROD then only include `STAGE: ${self:provider.stage}`
 
