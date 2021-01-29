@@ -61,6 +61,30 @@ exports.handler = async (event, context) => {
 
 
 <!-- AWS Get Secret -->
+<details><summary><b>Response</b></summary>
+<p>
+
+### Description
+When using Lambda Proxy with ApiGateway this will return the proper response back to the client.
+
+### Setup
+
+#### file.js
+```js
+const { Response } = require('ls-lambda-helpers');
+
+exports.handler = async (event, context) => { 
+  const {queryStringParameters:{test}} = event;
+  if (test != "string") return new Response("Your input is garbage").fail();
+  
+  return new Response("Looks Good").sucess();
+}
+```
+</p>
+</details>
+
+
+<!-- AWS Get Secret -->
 <details><summary><b>AWS Get Secret</b></summary>
 <p>
 
@@ -81,6 +105,7 @@ exports.handler = async (event, context) => {
 ```
 </p>
 </details>
+
 
 <!-- DDQ Auth -->
 <details><summary><b>DDQ Auth</b></summary>
