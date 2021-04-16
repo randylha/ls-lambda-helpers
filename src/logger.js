@@ -1,20 +1,22 @@
+/* eslint class-methods-use-this: ["error", { "exceptMethods": ["audit"] }] */
+
 class Logger {
   constructor() {
-    this.isProduction = process.env.STAGE === 'prod';
+    this.isProduction = process.env.stage === 'prod';
     this.logLevelMap = { debug: 3, info: 2, error: 1 };
     this.logLevel = this.setLogLevel();
   }
 
   setLogLevel() {
-    return this.logLevelMap[process.env.LOG_LEVEL];
+    return this.logLevelMap[process.env.logLevel];
   }
 
   debug(...message) {
     if (this.logLevel < 3) {
       return;
     }
-    console.log(
-      `${process.env.stackName.toUpperCase()}: ${JSON.stringify(message)}`
+    console.debug(
+      `${process.env.stackName.toUpperCase()}: ${JSON.stringify(message)}`,
     );
   }
 
@@ -22,15 +24,15 @@ class Logger {
     if (this.logLevel < 3) {
       return;
     }
-    console.log(label, message);
+    console.debug(label, message);
   }
 
   info(...message) {
     if (this.logLevel < 2) {
       return;
     }
-    console.log(
-      `${process.env.stackName.toUpperCase()}: ${JSON.stringify(message)}`
+    console.info(
+      `${process.env.stackName.toUpperCase()}: ${JSON.stringify(message)}`,
     );
   }
 
@@ -39,17 +41,17 @@ class Logger {
       return;
     }
     if (message instanceof Error) {
-      console.log(message);
+      console.error(message);
     } else {
-      console.log(
-        `${process.env.stackName.toUpperCase()}: ${JSON.stringify(message)}`
+      console.error(
+        `${process.env.stackName.toUpperCase()}: ${JSON.stringify(message)}`,
       );
     }
   }
 
   audit(...message) {
     console.log(
-      `${process.env.stackName.toUpperCase()}: ${JSON.stringify(message)}`
+      `${process.env.stackName.toUpperCase()}: ${JSON.stringify(message)}`,
     );
   }
 
@@ -58,9 +60,9 @@ class Logger {
       return;
     }
     console.log(
-      `${process.env.stackName.toUpperCase()}: ${JSON.stringify(message)}`
+      `${process.env.stackName.toUpperCase()}: ${JSON.stringify(message)}`,
     );
   }
 }
 
-module.exports = Logger;
+module.exports = { Logger };
