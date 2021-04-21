@@ -2,13 +2,17 @@
 
 class Logger {
   constructor() {
-    this.isProduction = process.env.stage === 'prod';
+    var effectiveStage = process.env.stage || process.env.STAGE
+    
+    this.isProduction = effectiveStage.toLowerCase().startsWith('prod');
     this.logLevelMap = { debug: 3, info: 2, error: 1 };
     this.logLevel = this.setLogLevel();
   }
 
   setLogLevel() {
-    return this.logLevelMap[process.env.logLevel];
+    var effectiveLogLevel = process.env.logLevel || process.env.LOG_LEVEL
+
+    return this.logLevelMap[effectiveLogLevel];
   }
 
   debug(...message) {
@@ -16,7 +20,7 @@ class Logger {
       return;
     }
     console.debug(
-      `${process.env.stackName.toUpperCase()}: ${JSON.stringify(message)}`,
+      `${process.env.stackName.toUpperCase()}: ${JSON.stringify(message)}`
     );
   }
 
@@ -32,7 +36,7 @@ class Logger {
       return;
     }
     console.info(
-      `${process.env.stackName.toUpperCase()}: ${JSON.stringify(message)}`,
+      `${process.env.stackName.toUpperCase()}: ${JSON.stringify(message)}`
     );
   }
 
@@ -44,14 +48,14 @@ class Logger {
       console.error(message);
     } else {
       console.error(
-        `${process.env.stackName.toUpperCase()}: ${JSON.stringify(message)}`,
+        `${process.env.stackName.toUpperCase()}: ${JSON.stringify(message)}`
       );
     }
   }
 
   audit(...message) {
     console.log(
-      `${process.env.stackName.toUpperCase()}: ${JSON.stringify(message)}`,
+      `${process.env.stackName.toUpperCase()}: ${JSON.stringify(message)}`
     );
   }
 
@@ -60,7 +64,7 @@ class Logger {
       return;
     }
     console.log(
-      `${process.env.stackName.toUpperCase()}: ${JSON.stringify(message)}`,
+      `${process.env.stackName.toUpperCase()}: ${JSON.stringify(message)}`
     );
   }
 }
