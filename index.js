@@ -4,5 +4,6 @@ const SFMC = require('./src/maketingCloud');
 const Secrets = require('./src/secretsHelper');
 const Encryption = require('./src/encryption');
 const DDQ = require('./src/ddqAuth');
+const Okta = require('./src/okta')
 
-module.exports = {Logger, Response, Encryption, SFMC, Secrets, DDQ};
+module.exports = {Logger, Response, Encryption, SFMC, Secrets, DDQ, Okta};
